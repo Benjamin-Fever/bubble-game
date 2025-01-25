@@ -29,4 +29,3 @@ script = null
 
 [node name="Door_Left" parent="Doors" instance=ExtResource("6_25eyr")]
 position = Vector2(-16, 208)
-script = null
