@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dd5sllu6lyujk"]
+[gd_scene load_steps=19 format=3 uid="uid://dd5sllu6lyujk"]
 
 [ext_resource type="Texture2D" uid="uid://cnbmvf1tb13x8" path="res://entitys/player/player.png" id="1_4fb7f"]
 [ext_resource type="Script" path="res://common/Statemachine/StateMachine.cs" id="2_nn4lj"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://entitys/player/Parry.cs" id="10_8s042"]
 [ext_resource type="Script" path="res://entitys/player/ShieldArea.cs" id="10_q5otw"]
 [ext_resource type="Script" path="res://common/Hurtbox.cs" id="11_goxo8"]
+[ext_resource type="Script" path="res://entitys/player/KeyNode.cs" id="13_subm3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dldfc"]
 size = Vector2(32, 16)
@@ -115,9 +116,9 @@ position = Vector2(-3, 0)
 shape = SubResource("RectangleShape2D_qnrjd")
 debug_color = Color(0.0156863, 0.223529, 0.443137, 0.32549)
 
-[connection signal="Dash" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerDashState"]]
-[connection signal="Movement" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerMovementState"]]
+[node name="KeyNode" type="Node" parent="."]
+script = ExtResource("13_subm3")
+
 [connection signal="Parry" from="InputComponent" to="ShieldComponent" method="StartParry"]
 [connection signal="ShieldDown" from="InputComponent" to="ShieldComponent" method="StopBlock"]
 [connection signal="ShieldUp" from="InputComponent" to="ShieldComponent" method="StartBlock"]
-[connection signal="Stomp" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerStompState"]]

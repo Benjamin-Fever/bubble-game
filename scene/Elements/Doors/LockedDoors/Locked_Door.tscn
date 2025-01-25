@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bj7wq50bjkue5"]
+
+[ext_resource type="PackedScene" uid="uid://bravbsu3uiuwi" path="res://scenes/Elements/door.tscn" id="1_o3ut7"]
+[ext_resource type="Script" path="res://scenes/Elements/Doors/LockedDoors/LockedDoor.cs" id="2_h6qjn"]
+
+[sub_resource type="Gradient" id="Gradient_8he6f"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g2gws"]
+gradient = SubResource("Gradient_8he6f")
+width = 32
+height = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xf6yg"]
+size = Vector2(32, 32)
+
+[node name="LockedDoor" instance=ExtResource("1_o3ut7")]
+script = ExtResource("2_h6qjn")
+IsLocked = true
+RequiredKey = ""
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
+texture = SubResource("GradientTexture2D_g2gws")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+shape = SubResource("RectangleShape2D_xf6yg")
