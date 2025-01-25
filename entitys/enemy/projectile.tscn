@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwnu7x17cltx7"]
+
+[ext_resource type="Script" path="res://entitys/enemy/Projectile.cs" id="1_eify4"]
+[ext_resource type="Script" path="res://entitys/enemy/ProjectileHitbox.cs" id="2_gsuve"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6dpdx"]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mqfeu"]
+radius = 8.0
+
+[node name="Projectile" type="Node2D"]
+script = ExtResource("1_eify4")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0.617336, 0.341534, 0.257707, 1)
+mesh = SubResource("CapsuleMesh_6dpdx")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 10
+collision_mask = 10
+script = ExtResource("2_gsuve")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_mqfeu")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="HitboxCollision" from="Hitbox" to="." method="Destroy"]
+[connection signal="timeout" from="Timer" to="." method="Destroy"]

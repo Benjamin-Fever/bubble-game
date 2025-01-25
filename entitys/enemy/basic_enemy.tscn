@@ -1,0 +1,97 @@
+[gd_scene load_steps=15 format=3 uid="uid://canmgwue4ew4x"]
+
+[ext_resource type="Texture2D" uid="uid://b7kt8o81uen6g" path="res://entitys/enemy/enemy_spritesheet.png" id="1_3k18q"]
+[ext_resource type="Script" path="res://common/SpeedComponent.cs" id="2_t2xm0"]
+[ext_resource type="Script" path="res://common/Statemachine/StateMachine.cs" id="2_v43go"]
+[ext_resource type="Script" path="res://common/HealthComponent.cs" id="3_00lou"]
+[ext_resource type="Script" path="res://entitys/player/IdleState.cs" id="3_f7xs8"]
+[ext_resource type="Script" path="res://entitys/enemy/GroupDetection.cs" id="4_ad4hl"]
+[ext_resource type="Script" path="res://entitys/enemy/ChasePlayerState.cs" id="4_ks7ac"]
+[ext_resource type="Script" path="res://entitys/enemy/StunState.cs" id="7_nwggk"]
+[ext_resource type="Script" path="res://common/Hurtbox.cs" id="8_aassc"]
+[ext_resource type="Script" path="res://entitys/enemy/EnemyDeathState.cs" id="8_d7uub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqil"]
+size = Vector2(18, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o4iyg"]
+radius = 128.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_srcs7"]
+radius = 48.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmrpv"]
+size = Vector2(20, 19)
+
+[node name="BasicEnemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3k18q")
+vframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 3)
+shape = SubResource("RectangleShape2D_qhqil")
+
+[node name="SpeedComponent" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("2_t2xm0")
+Body = NodePath("..")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_00lou")
+MaxHealth = 1
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("2_v43go")
+initialState = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("3_f7xs8")
+
+[node name="ChasePlayerState" type="Node" parent="StateMachine" node_paths=PackedStringArray("speedComponent")]
+script = ExtResource("4_ks7ac")
+ChaseSpeed = 8000.0
+speedComponent = NodePath("../../SpeedComponent")
+
+[node name="StunState" type="Node" parent="StateMachine"]
+script = ExtResource("7_nwggk")
+
+[node name="EnemyDeathState" type="Node" parent="StateMachine"]
+script = ExtResource("8_d7uub")
+
+[node name="AgroRange" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_ad4hl")
+_groupName = "player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AgroRange"]
+shape = SubResource("CircleShape2D_o4iyg")
+debug_color = Color(0.894118, 0.317647, 0, 0.192157)
+
+[node name="NearRange" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_ad4hl")
+_groupName = "player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NearRange"]
+shape = SubResource("CircleShape2D_srcs7")
+debug_color = Color(0, 0.645704, 0.261013, 0.156863)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 12
+collision_mask = 8
+script = ExtResource("8_aassc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-1, -3.5)
+shape = SubResource("RectangleShape2D_nmrpv")
+debug_color = Color(0.901584, 0.272774, 0.389792, 0.180392)
+
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine" method="ChangeState" binds= ["EnemyDeathState"]]
+[connection signal="GroupMemberEntered" from="AgroRange" to="StateMachine" method="ChangeState" binds= ["ChasePlayerState"]]
+[connection signal="HitReceived" from="Hurtbox" to="HealthComponent" method="RemoveHealth" binds= [1]]

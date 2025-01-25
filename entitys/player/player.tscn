@@ -1,0 +1,123 @@
+[gd_scene load_steps=18 format=3 uid="uid://dd5sllu6lyujk"]
+
+[ext_resource type="Texture2D" uid="uid://cnbmvf1tb13x8" path="res://entitys/player/player.png" id="1_4fb7f"]
+[ext_resource type="Script" path="res://common/Statemachine/StateMachine.cs" id="2_nn4lj"]
+[ext_resource type="Script" path="res://entitys/player/ShieldComponent.cs" id="3_1w6s5"]
+[ext_resource type="Script" path="res://entitys/player/InputComponent.cs" id="4_6i7gl"]
+[ext_resource type="Script" path="res://common/SpeedComponent.cs" id="4_fy0fe"]
+[ext_resource type="Script" path="res://entitys/player/IdleState.cs" id="5_0fyfl"]
+[ext_resource type="Script" path="res://entitys/player/PlayerMovementState.cs" id="6_50hqe"]
+[ext_resource type="Script" path="res://entitys/player/PlayerDashState.cs" id="7_0qx30"]
+[ext_resource type="Script" path="res://entitys/player/PlayerStompState.cs" id="8_gc4du"]
+[ext_resource type="Script" path="res://entitys/player/Parry.cs" id="10_8s042"]
+[ext_resource type="Script" path="res://entitys/player/ShieldArea.cs" id="10_q5otw"]
+[ext_resource type="Script" path="res://common/Hurtbox.cs" id="11_goxo8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dldfc"]
+size = Vector2(32, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgncq"]
+radius = 24.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_6uvxq"]
+radius = 24.0
+height = 48.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ootv"]
+radius = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qnrjd"]
+size = Vector2(26, 32)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_dldfc")
+
+[node name="InputComponent" type="Node" parent="."]
+script = ExtResource("4_6i7gl")
+
+[node name="ShieldComponent" type="Node" parent="."]
+script = ExtResource("3_1w6s5")
+
+[node name="SpeedComponent" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("4_fy0fe")
+Body = NodePath("..")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("2_nn4lj")
+initialState = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("5_0fyfl")
+
+[node name="PlayerMovementState" type="Node" parent="StateMachine" node_paths=PackedStringArray("_inputComponent", "_speedComponent")]
+script = ExtResource("6_50hqe")
+_speed = 9000.0
+_inputComponent = NodePath("../../InputComponent")
+_speedComponent = NodePath("../../SpeedComponent")
+
+[node name="PlayerDashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("_speedComponent")]
+script = ExtResource("7_0qx30")
+_dashDistance = 64.0
+_dashTime = 0.2
+_speedComponent = NodePath("../../SpeedComponent")
+
+[node name="PlayerStompState" type="Node" parent="StateMachine"]
+script = ExtResource("8_gc4du")
+
+[node name="Shield" type="Area2D" parent="." node_paths=PackedStringArray("_shieldComponent")]
+collision_layer = 12
+collision_mask = 12
+script = ExtResource("10_q5otw")
+_knockbackForce = 20000.0
+_stunTime = 0.2
+_shieldComponent = NodePath("../ShieldComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
+shape = SubResource("CircleShape2D_vgncq")
+disabled = true
+debug_color = Color(0, 0.635294, 0.407843, 0.113725)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Shield"]
+visible = false
+modulate = Color(0.380392, 1, 1, 0.243137)
+mesh = SubResource("SphereMesh_6uvxq")
+
+[node name="Parry" type="Area2D" parent="." node_paths=PackedStringArray("ShieldComponent")]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("10_8s042")
+ShieldComponent = NodePath("../ShieldComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Parry"]
+shape = SubResource("CircleShape2D_5ootv")
+disabled = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Parry"]
+visible = false
+modulate = Color(0.929412, 0.376471, 0.654902, 0.243137)
+mesh = SubResource("SphereMesh_6uvxq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4fb7f")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("11_goxo8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-3, 0)
+shape = SubResource("RectangleShape2D_qnrjd")
+debug_color = Color(0.0156863, 0.223529, 0.443137, 0.32549)
+
+[connection signal="Dash" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerDashState"]]
+[connection signal="Movement" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerMovementState"]]
+[connection signal="Parry" from="InputComponent" to="ShieldComponent" method="StartParry"]
+[connection signal="ShieldDown" from="InputComponent" to="ShieldComponent" method="StopBlock"]
+[connection signal="ShieldUp" from="InputComponent" to="ShieldComponent" method="StartBlock"]
+[connection signal="Stomp" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerStompState"]]
