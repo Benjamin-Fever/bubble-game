@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bj7wq50bjkue5"]
 
-[ext_resource type="PackedScene" uid="uid://bravbsu3uiuwi" path="res://scenes/Elements/door.tscn" id="1_o3ut7"]
-[ext_resource type="Script" path="res://scenes/Elements/Doors/LockedDoors/LockedDoor.cs" id="2_h6qjn"]
+[ext_resource type="PackedScene" uid="uid://bravbsu3uiuwi" path="res://scene/Elements/door.tscn" id="1_o3ut7"]
+[ext_resource type="Script" path="res://scene/Elements/Doors/LockedDoors/LockedDoor.cs" id="2_h6qjn"]
 
 [sub_resource type="Gradient" id="Gradient_8he6f"]
 

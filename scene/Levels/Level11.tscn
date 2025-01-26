@@ -26,7 +26,8 @@ script = ExtResource("4_6fbvr")
 
 [node name="Door_Right" parent="." instance=ExtResource("5_m2wc3")]
 position = Vector2(783, 209)
-DestinationVector = Vector2(10, 400)
+DestinationLevel = "Level12"
+DestinationVector = Vector2(80, 400)
 
 [node name="LockedDoor" parent="." instance=ExtResource("6_4u654")]
 position = Vector2(784, 815)

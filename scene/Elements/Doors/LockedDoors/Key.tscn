@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://df5nt37t37srx"]
+[gd_scene load_steps=4 format=3 uid="uid://df5nt37t37srx"]
+
+[ext_resource type="Script" path="res://scene/Elements/Doors/LockedDoors/Key.cs" id="1_ffl5l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0rau"]
 
@@ -7,6 +9,7 @@ size = Vector2(20, 20)
 
 [node name="Key" type="Area2D"]
 collision_mask = 2
+script = ExtResource("1_ffl5l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_s0rau")
