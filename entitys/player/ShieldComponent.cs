@@ -30,7 +30,7 @@ public partial class ShieldComponent : Node {
 	}
 
 	public void StartParry() {
-		if (IsBlocking) return;
+		if (IsBlocking || _currentShieldHealth <= 0) return;
 		IsParrying = true;
 		_currentParryTimer = ParryTimer;
 	}
