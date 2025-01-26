@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://di6yg5j5qg28w"]
+
+[ext_resource type="PackedScene" uid="uid://bravbsu3uiuwi" path="res://scenes/Elements/door.tscn" id="1_y2hqt"]
+[ext_resource type="Script" path="res://ButtonDoor.cs" id="2_lsyhf"]
+
+[node name="ButtonDoor" instance=ExtResource("1_y2hqt")]
+script = ExtResource("2_lsyhf")

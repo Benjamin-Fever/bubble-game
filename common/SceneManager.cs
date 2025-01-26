@@ -5,7 +5,7 @@ using Godot.Collections;
 public partial class SceneManager : Node {
 	public static SceneManager instance;
 	public static Scene2D currentScene;
-
+	
 
 	public override void _EnterTree() {
 		instance = this;
@@ -33,11 +33,12 @@ public partial class SceneManager : Node {
 	}
 
 	public static void ChangeScene(Scene2D scene) {
-		currentScene.Save();
-		currentScene.QueueFree();
+		//currentScene.Save();
+		currentScene.CallDeferred(MethodName.QueueFree);
 		currentScene = scene;
-		instance.AddChild(scene);
-		scene.Load();
+		instance.CallDeferred(MethodName.AddChild, scene);
+
+		//scene.Load();
 	}
 
 	public static void CloseGame() {

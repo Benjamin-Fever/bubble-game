@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dd5sllu6lyujk"]
+[gd_scene load_steps=31 format=3 uid="uid://dd5sllu6lyujk"]
 
 [ext_resource type="Texture2D" uid="uid://cnbmvf1tb13x8" path="res://entitys/player/player.png" id="1_4fb7f"]
 [ext_resource type="Script" path="res://common/Statemachine/StateMachine.cs" id="2_nn4lj"]
@@ -14,13 +14,14 @@
 [ext_resource type="Script" path="res://entitys/player/ShieldArea.cs" id="10_q5otw"]
 [ext_resource type="Script" path="res://common/Hurtbox.cs" id="11_goxo8"]
 [ext_resource type="Script" path="res://common/HealthComponent.cs" id="13_ivf4w"]
+[ext_resource type="Script" path="res://entitys/player/KeyNode.cs" id="13_subm3"]
 [ext_resource type="Script" path="res://entitys/player/HealthUi.cs" id="15_hj6qa"]
 [ext_resource type="Texture2D" uid="uid://b6be724867wwi" path="res://entitys/player/ShieldUiUnder.png" id="16_m7j7u"]
 [ext_resource type="Texture2D" uid="uid://00bkc3xd8qlw" path="res://entitys/player/ShieldUI.png" id="17_aj6l0"]
 [ext_resource type="Script" path="res://entitys/player/ShieldProgress.cs" id="18_mgyd3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dldfc"]
-size = Vector2(32, 16)
+size = Vector2(23, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgncq"]
 radius = 24.0
@@ -63,7 +64,7 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
+position = Vector2(-1.5, 8)
 shape = SubResource("RectangleShape2D_dldfc")
 
 [node name="InputComponent" type="Node" parent="."]
@@ -107,9 +108,6 @@ script = ExtResource("9_kbya2")
 collision_layer = 12
 collision_mask = 12
 script = ExtResource("10_q5otw")
-_dashKnockbackDistance = 64.0
-_stompKnockbackDistance = 128.0
-_knockbackTime = 0.1
 _shieldComponent = NodePath("../ShieldComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
@@ -226,12 +224,14 @@ script = ExtResource("18_mgyd3")
 shield = NodePath("../../ShieldComponent")
 metadata/_edit_use_anchors_ = true
 
+[node name="KeyNode" type="Node" parent="."]
+script = ExtResource("13_subm3")
+
 [connection signal="Dash" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerDashState"]]
 [connection signal="Movement" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerMovementState"]]
 [connection signal="Parry" from="InputComponent" to="ShieldComponent" method="StartParry"]
 [connection signal="ShieldDown" from="InputComponent" to="ShieldComponent" method="StopBlock"]
 [connection signal="ShieldUp" from="InputComponent" to="ShieldComponent" method="StartBlock"]
 [connection signal="Stomp" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerStompState"]]
-[connection signal="ShieldAttacked" from="Shield" to="ShieldComponent" method="ShieldAttacked"]
 [connection signal="HitReceived" from="Hurtbox" to="HealthComponent" method="RemoveHealth" binds= [1]]
 [connection signal="HealthDepleted" from="HealthComponent" to="StateMachine" method="ChangeState" binds= ["PlayerDeathState"]]
