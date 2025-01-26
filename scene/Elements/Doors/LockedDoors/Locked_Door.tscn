@@ -18,7 +18,7 @@ script = ExtResource("2_h6qjn")
 IsLocked = true
 RequiredKey = ""
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="2"]
+[node name="Sprite2D2" type="Sprite2D" parent="." index="2"]
 texture = SubResource("GradientTexture2D_g2gws")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="3"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3jjpjxylg7th"]
+[gd_scene load_steps=4 format=3 uid="uid://d3jjpjxylg7th"]
 
 [ext_resource type="Script" path="res://scene/Elements/Door.cs" id="1_pngdo"]
+[ext_resource type="Texture2D" uid="uid://b82hoexfaivmc" path="res://scene/assets/door.png" id="2_l712p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lx6fp"]
 size = Vector2(34, 34)
@@ -14,5 +15,8 @@ shape = SubResource("RectangleShape2D_lx6fp")
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(-32, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_l712p")
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]

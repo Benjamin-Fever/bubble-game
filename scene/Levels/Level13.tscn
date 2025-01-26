@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://b4807ho3c28um"]
+[gd_scene load_steps=11 format=4 uid="uid://b4807ho3c28um"]
 
 [ext_resource type="Script" path="res://common/Scene2D.cs" id="1_13fvd"]
 [ext_resource type="Script" path="res://common/SceneData.cs" id="2_3xlip"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://ce4awwipe81om" path="res://scene/Elements/Doors/Door_Down.tscn" id="5_ulwqd"]
 [ext_resource type="PackedScene" uid="uid://bodlupx4v4vwl" path="res://scene/Elements/Doors/Door_Left.tscn" id="6_uuavs"]
 [ext_resource type="PackedScene" uid="uid://brnwxsykx60m1" path="res://entitys/enemy/projectile_enemy.tscn" id="7_1h766"]
-[ext_resource type="PackedScene" uid="uid://canmgwue4ew4x" path="res://entitys/enemy/basic_enemy.tscn" id="8_lj2he"]
 [ext_resource type="Script" path="res://scene/HoleRegion.cs" id="9_3bocc"]
 
 [sub_resource type="Resource" id="Resource_fd720"]
@@ -42,8 +41,8 @@ DestinationVector = Vector2(875, 398)
 [node name="ProjecileEnemy" parent="." instance=ExtResource("7_1h766")]
 position = Vector2(120, 360)
 
-[node name="BasicEnemy" parent="." instance=ExtResource("8_lj2he")]
-position = Vector2(512, 96)
+[node name="ProjecileEnemy2" parent="." instance=ExtResource("7_1h766")]
+position = Vector2(528, 88)
 
 [node name="HoleRegion" type="Area2D" parent="."]
 script = ExtResource("9_3bocc")

@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://common/SceneData.cs" id="2_m3dv2"]
 [ext_resource type="Script" path="res://common/GameMap.cs" id="2_y0lbn"]
 [ext_resource type="TileSet" uid="uid://ojxkumaqf6w3" path="res://scene/assets/tileset.tres" id="3_hwkgp"]
-[ext_resource type="PackedScene" uid="uid://bodlupx4v4vwl" path="res://scene/Elements/Doors/Door_Left.tscn" id="5_3u08v"]
 [ext_resource type="PackedScene" uid="uid://ce4awwipe81om" path="res://scene/Elements/Doors/Door_Down.tscn" id="6_sd5fy"]
+[ext_resource type="PackedScene" uid="uid://df5nt37t37srx" path="res://scene/Elements/Doors/LockedDoors/Key.tscn" id="6_swlrb"]
 
 [sub_resource type="Resource" id="Resource_e14gr"]
 script = ExtResource("2_m3dv2")
@@ -24,11 +24,9 @@ script = ExtResource("2_y0lbn")
 [node name="Node" type="Node" parent="."]
 
 [node name="Door_Down" parent="Node" instance=ExtResource("6_sd5fy")]
-position = Vector2(176, 240)
+position = Vector2(176, 272)
 DestinationLevel = "Level12"
 DestinationVector = Vector2(464, 200)
 
-[node name="Door_Left" parent="Node" instance=ExtResource("5_3u08v")]
-position = Vector2(112, 184)
-DestinationLevel = "Level11"
-DestinationVector = Vector2(464, 144)
+[node name="Key" parent="Node" instance=ExtResource("6_swlrb")]
+position = Vector2(224, 232)

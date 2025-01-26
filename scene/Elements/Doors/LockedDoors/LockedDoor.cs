@@ -31,7 +31,7 @@ public partial class LockedDoor : Door
 		
 		ToggleCollision(false);
 		GD.Print("Unlocked Door");
-		//base.OnBodyEntered(body);
+		base.OnBodyEntered(body);
 		}
 	}
 	  private void ToggleCollision(bool locked)

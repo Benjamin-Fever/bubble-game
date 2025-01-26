@@ -35,5 +35,6 @@ DestinationVector = Vector2(730, 209)
 [node name="Door_Up" parent="." instance=ExtResource("7_8biyj")]
 position = Vector2(464, 144)
 DestinationLevel = "StartLevel"
+DestinationVector = Vector2(176, 239)
 
 [connection signal="body_entered" from="Door_Left" to="." method="OnBodyEntered"]

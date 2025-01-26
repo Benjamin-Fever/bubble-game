@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://clnupjgooxsja"]
+[gd_scene load_steps=11 format=4 uid="uid://clnupjgooxsja"]
 
 [ext_resource type="Script" path="res://common/Scene2D.cs" id="1_khoed"]
 [ext_resource type="Script" path="res://common/SceneData.cs" id="2_lmmfy"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://common/GameMap.cs" id="4_indu6"]
 [ext_resource type="PackedScene" uid="uid://btd76hb2m8x7x" path="res://scene/Elements/Doors/Door_Up.tscn" id="5_ty8w2"]
 [ext_resource type="PackedScene" uid="uid://bodlupx4v4vwl" path="res://scene/Elements/Doors/Door_Left.tscn" id="6_25eyr"]
+[ext_resource type="PackedScene" uid="uid://d3jjpjxylg7th" path="res://scene/Elements/Doors/Door_Right.tscn" id="6_ogvhb"]
 [ext_resource type="PackedScene" uid="uid://bj7wq50bjkue5" path="res://scene/Elements/Doors/LockedDoors/Locked_Door.tscn" id="7_jud3b"]
 [ext_resource type="Script" path="res://scene/Elements/Door.cs" id="8_7eynm"]
 
@@ -25,13 +26,20 @@ script = ExtResource("4_indu6")
 
 [node name="Doors" type="Node" parent="."]
 
-[node name="Level23 Up Door" parent="Doors" instance=ExtResource("5_ty8w2")]
-position = Vector2(336, 112)
-script = null
-
 [node name="Door_Left" parent="Doors" instance=ExtResource("6_25eyr")]
 position = Vector2(112, 304)
+
+[node name="Door_Left2" parent="Doors" instance=ExtResource("6_25eyr")]
+position = Vector2(112, 976)
+
+[node name="Door_Right" parent="Doors" instance=ExtResource("6_ogvhb")]
+position = Vector2(720, 976)
 
 [node name="LockedDoor" parent="." instance=ExtResource("7_jud3b")]
 position = Vector2(-104, 1216)
 script = ExtResource("8_7eynm")
+
+[node name="Door_Up" parent="." instance=ExtResource("5_ty8w2")]
+position = Vector2(336, 112)
+DestinationLevel = "Level12"
+DestinationVector = Vector2(336, 430)
