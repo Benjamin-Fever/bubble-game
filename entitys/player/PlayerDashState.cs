@@ -22,11 +22,13 @@ public partial class PlayerDashState : State {
     private Vector2 _prevFramePosition;
     public override void Update(double delta) {
         
-        if (_startingDashPosition.DistanceTo(_speedComponent.Body.GlobalPosition) >= _dashDistance || _prevFramePosition == _speedComponent.Body.GlobalPosition) {
+        if (_startingDashPosition.DistanceTo(_speedComponent.Body.GlobalPosition) >= _dashDistance || _prevFramePosition.DistanceTo(_speedComponent.Body.GlobalPosition) < 1) {
             _speedComponent.Velocity = Vector2.Zero;
+            GD.Print("Dash ended");
             ChangeState("IdleState");
         }
         _prevFramePosition = _speedComponent.Body.GlobalPosition;
+        GD.Print(_prevFramePosition);
     }
 
     public override void Exit()
