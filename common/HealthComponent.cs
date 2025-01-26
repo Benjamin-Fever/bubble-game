@@ -8,23 +8,21 @@ public partial class HealthComponent : Node {
 
 
 	[Export] public int MaxHealth { get; set; } = 100;
-	private int _currentHealth;
+	public int CurrentHealth {get; private set;}
 
 	public override void _Ready() {
-		_currentHealth = MaxHealth;
+		CurrentHealth = MaxHealth;
 	}
 
 	public void AddHealth(int amount) {
-		_currentHealth = Mathf.Min(_currentHealth + amount, MaxHealth);
-		EmitSignal(SignalName.HealthChanged, _currentHealth);
+		CurrentHealth = Mathf.Min(CurrentHealth + amount, MaxHealth);
+		EmitSignal(SignalName.HealthChanged, CurrentHealth);
 	}
 
 	public void RemoveHealth(int amount) {
-		GD.Print("Removing health");
-		_currentHealth = Mathf.Max(_currentHealth - amount, 0);
-		EmitSignal(SignalName.HealthChanged, _currentHealth);
-		if (_currentHealth <= 0) {
-			GD.Print("Health depleted");
+		CurrentHealth = Mathf.Max(CurrentHealth - amount, 0);
+		EmitSignal(SignalName.HealthChanged, CurrentHealth);
+		if (CurrentHealth <= 0) {
 			EmitSignal(SignalName.HealthDepleted);
 		}
 	}

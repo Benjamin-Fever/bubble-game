@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dd5sllu6lyujk"]
+[gd_scene load_steps=27 format=3 uid="uid://dd5sllu6lyujk"]
 
 [ext_resource type="Texture2D" uid="uid://cnbmvf1tb13x8" path="res://entitys/player/player.png" id="1_4fb7f"]
 [ext_resource type="Script" path="res://common/Statemachine/StateMachine.cs" id="2_nn4lj"]
@@ -9,9 +9,12 @@
 [ext_resource type="Script" path="res://entitys/player/PlayerMovementState.cs" id="6_50hqe"]
 [ext_resource type="Script" path="res://entitys/player/PlayerDashState.cs" id="7_0qx30"]
 [ext_resource type="Script" path="res://entitys/player/PlayerStompState.cs" id="8_gc4du"]
+[ext_resource type="Script" path="res://entitys/player/PlayerDeathState.cs" id="9_kbya2"]
 [ext_resource type="Script" path="res://entitys/player/Parry.cs" id="10_8s042"]
 [ext_resource type="Script" path="res://entitys/player/ShieldArea.cs" id="10_q5otw"]
 [ext_resource type="Script" path="res://common/Hurtbox.cs" id="11_goxo8"]
+[ext_resource type="Script" path="res://common/HealthComponent.cs" id="13_ivf4w"]
+[ext_resource type="Script" path="res://entitys/player/HealthUi.cs" id="15_hj6qa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dldfc"]
 size = Vector2(32, 16)
@@ -28,6 +31,29 @@ radius = 24.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qnrjd"]
 size = Vector2(26, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s63co"]
+load_path = "res://.godot/imported/Hearts.png-0e6bb34c91221dfe7ca612c5abe71157.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qt80k"]
+atlas = SubResource("CompressedTexture2D_s63co")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v6ey"]
+atlas = SubResource("CompressedTexture2D_s63co")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofv1v"]
+atlas = SubResource("CompressedTexture2D_s63co")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvbwp"]
+atlas = SubResource("CompressedTexture2D_s63co")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k472m"]
+atlas = SubResource("CompressedTexture2D_s63co")
+region = Rect2(0, 0, 32, 32)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
@@ -62,19 +88,23 @@ _speedComponent = NodePath("../../SpeedComponent")
 
 [node name="PlayerDashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("_speedComponent")]
 script = ExtResource("7_0qx30")
-_dashDistance = 64.0
+_dashDistance = 80.0
 _dashTime = 0.2
 _speedComponent = NodePath("../../SpeedComponent")
 
 [node name="PlayerStompState" type="Node" parent="StateMachine"]
 script = ExtResource("8_gc4du")
 
+[node name="PlayerDeathState" type="Node" parent="StateMachine"]
+script = ExtResource("9_kbya2")
+
 [node name="Shield" type="Area2D" parent="." node_paths=PackedStringArray("_shieldComponent")]
 collision_layer = 12
 collision_mask = 12
 script = ExtResource("10_q5otw")
-_knockbackForce = 20000.0
-_stunTime = 0.2
+_dashKnockbackDistance = 64.0
+_stompKnockbackDistance = 128.0
+_knockbackTime = 0.1
 _shieldComponent = NodePath("../ShieldComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
@@ -115,9 +145,76 @@ position = Vector2(-3, 0)
 shape = SubResource("RectangleShape2D_qnrjd")
 debug_color = Color(0.0156863, 0.223529, 0.443137, 0.32549)
 
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("13_ivf4w")
+MaxHealth = 5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthUi" type="MarginContainer" parent="CanvasLayer" node_paths=PackedStringArray("healthComponent")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 32
+script = ExtResource("15_hj6qa")
+healthComponent = NodePath("../../HealthComponent")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HealthUi"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 25
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HealthUi/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_qt80k")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/HealthUi/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_5v6ey")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/HealthUi/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_ofv1v")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/HealthUi/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_dvbwp")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/HealthUi/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_k472m")
+expand_mode = 3
+stretch_mode = 3
+
 [connection signal="Dash" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerDashState"]]
 [connection signal="Movement" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerMovementState"]]
 [connection signal="Parry" from="InputComponent" to="ShieldComponent" method="StartParry"]
 [connection signal="ShieldDown" from="InputComponent" to="ShieldComponent" method="StopBlock"]
 [connection signal="ShieldUp" from="InputComponent" to="ShieldComponent" method="StartBlock"]
 [connection signal="Stomp" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerStompState"]]
+[connection signal="ShieldAttacked" from="Shield" to="ShieldComponent" method="ShieldAttacked"]
+[connection signal="HitReceived" from="Hurtbox" to="HealthComponent" method="RemoveHealth" binds= [1]]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine" method="ChangeState" binds= ["PlayerDeathState"]]

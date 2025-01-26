@@ -12,7 +12,7 @@ public partial class ShieldComponent : Node {
 	public bool IsParrying { get; private set; }
 
 	public void StartBlock() {
-		if (IsParrying) return;
+		if (IsParrying || ShieldHealth <= 0) return;
 		IsBlocking = true;
 	}
 
@@ -28,6 +28,10 @@ public partial class ShieldComponent : Node {
 
 	public void ShieldAttacked() {
 		if (IsBlocking) ShieldHealth -= 1;
+	}
+
+	public bool CanBlock(){
+		return ShieldHealth > 0 && IsBlocking;
 	}
 
     public override void _Process(double delta) {

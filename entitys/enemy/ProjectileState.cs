@@ -9,20 +9,20 @@ public partial class ProjectileState : State {
 
 	public override void Enter() {
 		timer = TimeBetweenShots;
-		ShootProjectile();
+		CallDeferred(MethodName.ShootProjectile);
 	}
 
 	public override void Update(double delta) {
 		timer -= (float)delta;
 		if (timer <= 0) {
-			ShootProjectile();
+			CallDeferred(MethodName.ShootProjectile);
 			timer = TimeBetweenShots;
 		}
 	}
 
 	private void ShootProjectile() {
 		Projectile projectile = ProjectileScene.Instantiate<Projectile>();
-		AddChild(projectile);
+		body.AddChild(projectile);
 		projectile._direction = body.GlobalPosition.DirectionTo(GetTree().Root.GetNode<CharacterBody2D>("Main/Player").GlobalPosition);
 		projectile.Speed = ProjectileSpeed;
 		projectile.GlobalPosition = body.GlobalPosition + (projectile._direction * 32);

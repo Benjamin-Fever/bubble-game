@@ -13,10 +13,10 @@ script = ExtResource("1_6ptnq")
 [node name="Level1" parent="SceneManager" instance=ExtResource("2_jycld")]
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
-position = Vector2(328, 208)
-zoom = Vector2(2, 2)
+zoom = Vector2(2.5, 2.5)
 script = ExtResource("5_s0fv3")
 target = NodePath("../Player")
+cameraLerp = 0.08
 
 [node name="Player" parent="." instance=ExtResource("6_q6b2l")]
 position = Vector2(64, 304)

@@ -1,8 +1,8 @@
 using Godot;
 
-[GlobalClass]
 public partial class EnemyDeathState : State {
-	public override void Enter() {
-		QueueFree();
-	}
+	[Export] CharacterBody2D body;
+    public override void Enter() {
+        body.QueueFree();
+    }
 }

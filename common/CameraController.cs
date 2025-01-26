@@ -2,7 +2,8 @@ using Godot;
 using System;
 
 public partial class CameraController : Camera2D {
-	[Export] Node2D target;
+	[Export] private Node2D target;
+    [Export] private float cameraLerp = 0.01f;
 
     public override void _Ready() {
         if (target == null) {
@@ -13,7 +14,7 @@ public partial class CameraController : Camera2D {
     }
 
     public override void _Process(double delta) {
-        GlobalPosition = GlobalPosition.Lerp(target.GlobalPosition, 0.15f);
+        GlobalPosition = GlobalPosition.Lerp(target.GlobalPosition, cameraLerp);
         LimitLeft = 0;
         LimitTop = 0;
         LimitRight = SceneManager.currentScene.GetMapBounds().End.X;

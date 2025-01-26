@@ -12,14 +12,14 @@ public partial class Parry : Area2D {
 		GetNode<MeshInstance2D>("MeshInstance2D").Visible = ShieldComponent.IsParrying;
 		if (!ShieldComponent.IsParrying) return;
 		foreach (Area2D area in GetOverlappingAreas()) {
-			Projectile projectile = area.GetParent<Projectile>();
+			if (area.GetParent() is not Projectile projectile) continue;
 			projectile._direction = GlobalPosition.DirectionTo(projectile.shooter.GlobalPosition);
 		}
 	}
 
 	private void OnAreaEntered(Area2D area) {
 		if (!ShieldComponent.IsParrying) return;
-		Projectile projectile = area.GetParent<Projectile>();
+		if (area.GetParent() is not Projectile projectile) return;
 		projectile._direction = GlobalPosition.DirectionTo(projectile.shooter.GlobalPosition);
 	}
 }
