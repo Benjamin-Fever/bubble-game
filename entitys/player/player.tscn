@@ -24,14 +24,14 @@
 size = Vector2(23, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgncq"]
-radius = 24.0
+radius = 32.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_6uvxq"]
 radius = 24.0
 height = 48.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ootv"]
-radius = 24.0
+radius = 32.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qnrjd"]
 size = Vector2(26, 32)
@@ -90,14 +90,17 @@ _speed = 9000.0
 _inputComponent = NodePath("../../InputComponent")
 _speedComponent = NodePath("../../SpeedComponent")
 
-[node name="PlayerDashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("_speedComponent")]
+[node name="PlayerDashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("_speedComponent", "shieldComponent")]
 script = ExtResource("7_0qx30")
 _dashDistance = 80.0
 _dashTime = 0.2
 _speedComponent = NodePath("../../SpeedComponent")
+shieldComponent = NodePath("../../ShieldComponent")
 
-[node name="PlayerStompState" type="Node" parent="StateMachine"]
+[node name="PlayerStompState" type="Node" parent="StateMachine" node_paths=PackedStringArray("shieldComponent", "speedComponent")]
 script = ExtResource("8_gc4du")
+shieldComponent = NodePath("../../ShieldComponent")
+speedComponent = NodePath("../../SpeedComponent")
 
 [node name="PlayerDeathState" type="Node" parent="StateMachine"]
 script = ExtResource("9_kbya2")
@@ -109,7 +112,6 @@ script = ExtResource("10_q5otw")
 _shieldComponent = NodePath("../ShieldComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
-scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_vgncq")
 disabled = true
 debug_color = Color(0, 0.635294, 0.407843, 0.113725)
@@ -126,7 +128,6 @@ script = ExtResource("10_8s042")
 ShieldComponent = NodePath("../ShieldComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Parry"]
-scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_5ootv")
 disabled = true
 

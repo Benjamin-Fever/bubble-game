@@ -40,19 +40,9 @@ position = Vector2(232, 176)
 [node name="ProjecileEnemy2" parent="." instance=ExtResource("6_bpwmp")]
 position = Vector2(440, 424)
 
-[node name="ProjecileEnemy3" parent="." instance=ExtResource("6_bpwmp")]
-position = Vector2(736, 192)
-
-[node name="ProjecileEnemy4" parent="." instance=ExtResource("6_bpwmp")]
-position = Vector2(720, 376)
-
-[node name="ProjecileEnemy5" parent="." instance=ExtResource("6_bpwmp")]
-position = Vector2(136, 328)
-
-[node name="ProjecileEnemy6" parent="." instance=ExtResource("6_bpwmp")]
-position = Vector2(184, 408)
-
 [node name="Doors" type="Node" parent="."]
 
 [node name="Door" parent="." instance=ExtResource("7_3q50l")]
 position = Vector2(463, 84)
+DestinationLevel = "level_1"
+DestinationVector = Vector2(10, 10)

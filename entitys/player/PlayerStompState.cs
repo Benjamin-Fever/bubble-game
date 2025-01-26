@@ -4,6 +4,7 @@ using System;
 public partial class PlayerStompState : State {
     [Export] private float _stompTimer = 1;
     [Export] private ShieldComponent shieldComponent; 
+    [Export] private SpeedComponent speedComponent;
     private float currentTimer;
 
 	public override bool CanChangeState() {
@@ -11,7 +12,7 @@ public partial class PlayerStompState : State {
     }
 
     public override void Enter() {
-
+        speedComponent.Velocity = Vector2.Zero;
         currentTimer = _stompTimer;
     }
 

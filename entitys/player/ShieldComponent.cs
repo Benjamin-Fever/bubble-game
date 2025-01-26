@@ -40,6 +40,7 @@ public partial class ShieldComponent : Node {
 	}
 
 	public bool CanBlock(){
+		GD.Print(_currentShieldHealth > 0 && IsBlocking);
 		return _currentShieldHealth > 0 && IsBlocking;
 	}
 

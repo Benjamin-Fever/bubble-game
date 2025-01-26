@@ -26,7 +26,7 @@ public partial class EnemyDoor : Door
 				}
 			}
 			if (IsLocked && enemiesExist){
-				GD.Print("Locked Door - Player does not have key");
+				GD.Print("Locked Door - Player have not killed all enemies");
 				return;
 			}
 		
@@ -36,9 +36,6 @@ public partial class EnemyDoor : Door
 		}
 	}
 
-	public void EnemyDeath(){
-
-	}
 	private void ToggleCollision(bool locked){
 		staticBody.GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", !locked);
 		IsLocked = locked;
