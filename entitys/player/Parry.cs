@@ -9,7 +9,7 @@ public partial class Parry : Area2D {
 
 	public override void _Process(double delta) {
 		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = !ShieldComponent.IsParrying;
-		GetNode<MeshInstance2D>("MeshInstance2D").Visible = ShieldComponent.IsParrying;
+		GetNode<Sprite2D>("Sprite2D").Visible = ShieldComponent.IsParrying;
 		if (!ShieldComponent.IsParrying) return;
 		foreach (Area2D area in GetOverlappingAreas()) {
 			if (area.GetParent() is not Projectile projectile) continue;

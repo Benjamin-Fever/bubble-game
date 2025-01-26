@@ -24,31 +24,25 @@ public partial class ShieldArea : Area2D {
 
     public override void _Process(double delta) {
 		CollisionShape2D collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
-		MeshInstance2D meshInstance2D = GetNode<MeshInstance2D>("MeshInstance2D");
+		Sprite2D sprite2D = GetNode<Sprite2D>("Sprite2D");
 		State currentState = GetParent().GetNode<StateMachine>("StateMachine").CurrentState;
 
 		collisionShape2D.Disabled = !_shieldComponent.CanBlock();
-		meshInstance2D.Visible = _shieldComponent.CanBlock();
+		sprite2D.Visible = _shieldComponent.CanBlock();
 
 		float knockbackDistance = _knockbackDistance;
 		
 		if (currentState is PlayerDashState) {
 			((CircleShape2D)collisionShape2D.Shape).Radius = _dashKnockbackRadius;
-			((SphereMesh)meshInstance2D.Mesh).Radius = _dashKnockbackRadius;
-			((SphereMesh)meshInstance2D.Mesh).Height = _dashKnockbackRadius * 2;
 			knockbackDistance = _dashKnockbackDistance;
 
 		}
 		else if (currentState is PlayerStompState) {
 			((CircleShape2D)collisionShape2D.Shape).Radius = _stompKnockbackRadius;
-			((SphereMesh)meshInstance2D.Mesh).Radius = _stompKnockbackRadius;
-			((SphereMesh)meshInstance2D.Mesh).Height = _stompKnockbackRadius * 2;
 			knockbackDistance = _stompKnockbackDistance;
 		}
 		else {
 			((CircleShape2D)collisionShape2D.Shape).Radius = _knockbackRadius;
-			((SphereMesh)meshInstance2D.Mesh).Radius = _knockbackRadius;
-			((SphereMesh)meshInstance2D.Mesh).Height = _knockbackRadius * 2;
 		}
 
 		if (!_shieldComponent.CanBlock()) return;
