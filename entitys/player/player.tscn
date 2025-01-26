@@ -119,6 +119,8 @@ debug_color = Color(0.0156863, 0.223529, 0.443137, 0.32549)
 [node name="KeyNode" type="Node" parent="."]
 script = ExtResource("13_subm3")
 
+[connection signal="Dash" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerDashState"]]
+[connection signal="Movement" from="InputComponent" to="StateMachine" method="ChangeState" binds= ["PlayerMovementState"]]
 [connection signal="Parry" from="InputComponent" to="ShieldComponent" method="StartParry"]
 [connection signal="ShieldDown" from="InputComponent" to="ShieldComponent" method="StopBlock"]
 [connection signal="ShieldUp" from="InputComponent" to="ShieldComponent" method="StartBlock"]

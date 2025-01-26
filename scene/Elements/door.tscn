@@ -6,6 +6,7 @@
 size = Vector2(33, 33)
 
 [node name="Door" type="Area2D"]
+collision_mask = 3
 script = ExtResource("1_1knhy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -32,7 +32,8 @@ public partial class Door : Area2D
 				{
 				player.GlobalPosition = DestinationVector;
 				}
-				SceneManager.ChangeScene("res://scenes/Levels/"+DestinationLevel + ".tscn");
+				SceneManager.ChangeScene("res://scene/Levels/"+DestinationLevel + ".tscn");
+				
 		}
 	}
 

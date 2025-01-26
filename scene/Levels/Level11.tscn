@@ -30,8 +30,10 @@ DestinationVector = Vector2(10, 400)
 
 [node name="LockedDoor" parent="." instance=ExtResource("6_4u654")]
 position = Vector2(784, 815)
+collision_mask = 1
 script = ExtResource("7_lud0v")
 
 [node name="LockedDoor2" parent="." instance=ExtResource("6_4u654")]
 position = Vector2(466, 1104)
+collision_mask = 1
 script = ExtResource("7_lud0v")

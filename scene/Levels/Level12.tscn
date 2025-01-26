@@ -30,3 +30,5 @@ DestinationVector = Vector2(65, 208)
 position = Vector2(48, 400)
 DestinationLevel = "Level1"
 DestinationVector = Vector2(760, 209)
+
+[connection signal="body_entered" from="Door_Left" to="." method="OnBodyEntered"]
