@@ -23,7 +23,7 @@ script = ExtResource("4_cng4g")
 
 [node name="Key" parent="." instance=ExtResource("5_yt12n")]
 position = Vector2(336, 240)
-keyName = "Gold"
+keyName = "Red"
 
 [node name="Door_Up" parent="." instance=ExtResource("6_4yt6o")]
 position = Vector2(336, 112)

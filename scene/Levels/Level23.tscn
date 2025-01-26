@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://clnupjgooxsja"]
+[gd_scene load_steps=12 format=4 uid="uid://clnupjgooxsja"]
 
 [ext_resource type="Script" path="res://common/Scene2D.cs" id="1_khoed"]
 [ext_resource type="Script" path="res://common/SceneData.cs" id="2_lmmfy"]
@@ -8,15 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://btd76hb2m8x7x" path="res://scene/Elements/Doors/Door_Up.tscn" id="5_ty8w2"]
 [ext_resource type="PackedScene" uid="uid://bodlupx4v4vwl" path="res://scene/Elements/Doors/Door_Left.tscn" id="6_25eyr"]
 [ext_resource type="PackedScene" uid="uid://d3jjpjxylg7th" path="res://scene/Elements/Doors/Door_Right.tscn" id="6_ogvhb"]
-[ext_resource type="PackedScene" uid="uid://bj7wq50bjkue5" path="res://scene/Elements/Doors/LockedDoors/Locked_Door.tscn" id="7_jud3b"]
-[ext_resource type="Script" path="res://scene/Elements/Door.cs" id="8_7eynm"]
 
 [sub_resource type="Resource" id="Resource_f4fu8"]
 script = ExtResource("2_lmmfy")
 data = {}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3jjl"]
-size = Vector2(113.281, 15.0227)
+size = Vector2(113.281, 11.0273)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ih2td"]
 size = Vector2(242, 82)
@@ -37,7 +35,7 @@ scale = Vector2(1.3418, -7.96381)
 script = ExtResource("5_6l0of")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HoleRegion"]
-position = Vector2(193.77, -38.6522)
+position = Vector2(190.789, -39.6909)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_s3jjl")
 
@@ -55,13 +53,9 @@ DestinationLevel = "Level42"
 [node name="Door_Right" parent="Doors" instance=ExtResource("6_ogvhb")]
 position = Vector2(720, 976)
 
-[node name="LockedDoor" parent="." instance=ExtResource("7_jud3b")]
-position = Vector2(-104, 1216)
-script = ExtResource("8_7eynm")
-
 [node name="Door_Up" parent="." instance=ExtResource("5_ty8w2")]
 position = Vector2(336, 112)
-DestinationLevel = "Level12"
+DestinationLevel = "Level13"
 DestinationVector = Vector2(336, 430)
 
 [node name="HoleRegion2" type="Area2D" parent="."]

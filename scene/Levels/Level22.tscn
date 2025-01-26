@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://bc7x2c00bfi2e"]
+[gd_scene load_steps=14 format=4 uid="uid://bc7x2c00bfi2e"]
 
 [ext_resource type="Script" path="res://common/Scene2D.cs" id="1_oeg8b"]
 [ext_resource type="Script" path="res://common/SceneData.cs" id="2_a8sw8"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bodlupx4v4vwl" path="res://scene/Elements/Doors/Door_Left.tscn" id="5_nrw64"]
 [ext_resource type="PackedScene" uid="uid://d3jjpjxylg7th" path="res://scene/Elements/Doors/Door_Right.tscn" id="6_g376n"]
 [ext_resource type="Script" path="res://scene/HoleRegion.cs" id="7_xs5dd"]
+[ext_resource type="Script" path="res://scene/Elements/BreakableWall.cs" id="8_w18ui"]
+[ext_resource type="Texture2D" uid="uid://bel07riwmhwne" path="res://scene/assets/tileset.png" id="9_h3hcu"]
 
 [sub_resource type="Resource" id="Resource_k13cm"]
 script = ExtResource("2_a8sw8")
@@ -14,6 +16,12 @@ data = {}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gxsiy"]
 size = Vector2(28.5741, 8.34219)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sen32"]
+size = Vector2(49, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eeo60"]
+size = Vector2(38, 40)
 
 [node name="Level22" type="Node2D" node_paths=PackedStringArray("mapLayer")]
 script = ExtResource("1_oeg8b")
@@ -47,3 +55,25 @@ DestinationVector = Vector2(750, 816)
 position = Vector2(912, 560)
 DestinationLevel = "Level23"
 DestinationVector = Vector2(148, 304)
+
+[node name="BreakableWall" type="Area2D" parent="."]
+position = Vector2(912, 560)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("8_w18ui")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableWall"]
+position = Vector2(-8.5, 3)
+shape = SubResource("RectangleShape2D_sen32")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="BreakableWall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableWall/StaticBody2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_eeo60")
+
+[node name="Sprite2D" type="Sprite2D" parent="BreakableWall"]
+texture = ExtResource("9_h3hcu")
+hframes = 9
+vframes = 3
+frame = 8

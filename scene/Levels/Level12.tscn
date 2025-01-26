@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bynfiofkc4u0f"]
+[gd_scene load_steps=11 format=4 uid="uid://bynfiofkc4u0f"]
 
 [ext_resource type="TileSet" uid="uid://ojxkumaqf6w3" path="res://scene/assets/tileset.tres" id="1_2cmb4"]
 [ext_resource type="Script" path="res://common/Scene2D.cs" id="1_2km1j"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://d3jjpjxylg7th" path="res://scene/Elements/Doors/Door_Right.tscn" id="3_ma6ly"]
 [ext_resource type="PackedScene" uid="uid://bodlupx4v4vwl" path="res://scene/Elements/Doors/Door_Left.tscn" id="4_htg2j"]
 [ext_resource type="PackedScene" uid="uid://btd76hb2m8x7x" path="res://scene/Elements/Doors/Door_Up.tscn" id="7_8biyj"]
-[ext_resource type="PackedScene" uid="uid://df5nt37t37srx" path="res://scene/Elements/Doors/LockedDoors/Key.tscn" id="8_rcnwd"]
 [ext_resource type="Script" path="res://scene/HoleRegion.cs" id="9_rh3hh"]
 
 [sub_resource type="Resource" id="Resource_0efwq"]
@@ -41,10 +40,6 @@ DestinationVector = Vector2(730, 209)
 position = Vector2(464, 144)
 DestinationLevel = "StartLevel"
 DestinationVector = Vector2(176, 239)
-
-[node name="Key" parent="." instance=ExtResource("8_rcnwd")]
-position = Vector2(200, 224)
-keyName = "Red"
 
 [node name="HoleRegion" type="Area2D" parent="."]
 collision_layer = 4

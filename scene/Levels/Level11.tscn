@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://tg66b36h7dfc"]
+[gd_scene load_steps=12 format=4 uid="uid://tg66b36h7dfc"]
 
 [ext_resource type="Script" path="res://common/Scene2D.cs" id="1_oa4u3"]
 [ext_resource type="Script" path="res://common/SceneData.cs" id="2_w0nut"]
@@ -6,8 +6,9 @@
 [ext_resource type="Script" path="res://common/GameMap.cs" id="4_6fbvr"]
 [ext_resource type="PackedScene" uid="uid://d3jjpjxylg7th" path="res://scene/Elements/Doors/Door_Right.tscn" id="5_m2wc3"]
 [ext_resource type="PackedScene" uid="uid://bj7wq50bjkue5" path="res://scene/Elements/Doors/LockedDoors/Locked_Door.tscn" id="6_4u654"]
-[ext_resource type="PackedScene" uid="uid://ce4awwipe81om" path="res://scene/Elements/Doors/Door_Down.tscn" id="7_o0tsf"]
+[ext_resource type="PackedScene" uid="uid://0tfmgkanfwpx" path="res://scene/Elements/Enemy_Door.tscn" id="8_b72nr"]
 [ext_resource type="Script" path="res://scene/HoleRegion.cs" id="8_fcx77"]
+[ext_resource type="PackedScene" uid="uid://brnwxsykx60m1" path="res://entitys/enemy/projectile_enemy.tscn" id="9_gq60v"]
 
 [sub_resource type="Resource" id="Resource_ko3tt"]
 script = ExtResource("2_w0nut")
@@ -43,11 +44,6 @@ RequiredKey = "Red"
 DestinationLevel = "Level22"
 DestinationVector = Vector2(282, 432)
 
-[node name="Door_Down" parent="." instance=ExtResource("7_o0tsf")]
-position = Vector2(464, 1104)
-DestinationLevel = "Level31"
-DestinationVector = Vector2(336, 146)
-
 [node name="HoleRegion" type="Area2D" parent="."]
 scale = Vector2(1.3418, -7.96381)
 collision_layer = 4
@@ -59,3 +55,17 @@ position = Vector2(286.183, -54.2454)
 rotation = 3.14159
 scale = Vector2(4.64258, 1.20417)
 shape = SubResource("RectangleShape2D_lyojv")
+
+[node name="Enemy_Door" parent="." instance=ExtResource("8_b72nr")]
+position = Vector2(464, 1104)
+DestinationLevel = "Level31"
+DestinationVector = Vector2(336, 146)
+
+[node name="ProjecileEnemy" parent="." instance=ExtResource("9_gq60v")]
+position = Vector2(336, 912)
+
+[node name="ProjecileEnemy2" parent="." instance=ExtResource("9_gq60v")]
+position = Vector2(616, 952)
+
+[node name="ProjecileEnemy3" parent="." instance=ExtResource("9_gq60v")]
+position = Vector2(480, 960)

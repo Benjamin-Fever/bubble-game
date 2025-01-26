@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://common/SceneData.cs" id="2_3xlip"]
 [ext_resource type="TileSet" uid="uid://ojxkumaqf6w3" path="res://scene/assets/tileset.tres" id="3_hdepj"]
 [ext_resource type="Script" path="res://common/GameMap.cs" id="4_qiyup"]
-[ext_resource type="PackedScene" uid="uid://ce4awwipe81om" path="res://scene/Elements/Doors/Door_Down.tscn" id="5_ulwqd"]
+[ext_resource type="PackedScene" uid="uid://0tfmgkanfwpx" path="res://scene/Elements/Enemy_Door.tscn" id="6_3xv3d"]
 [ext_resource type="PackedScene" uid="uid://bodlupx4v4vwl" path="res://scene/Elements/Doors/Door_Left.tscn" id="6_uuavs"]
 [ext_resource type="PackedScene" uid="uid://brnwxsykx60m1" path="res://entitys/enemy/projectile_enemy.tscn" id="7_1h766"]
 [ext_resource type="Script" path="res://scene/HoleRegion.cs" id="9_3bocc"]
@@ -14,7 +14,7 @@ script = ExtResource("2_3xlip")
 data = {}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6h71r"]
-size = Vector2(234, 194)
+size = Vector2(234, 208)
 
 [node name="Level13" type="Node2D" node_paths=PackedStringArray("mapLayer")]
 script = ExtResource("1_13fvd")
@@ -28,15 +28,15 @@ script = ExtResource("4_qiyup")
 
 [node name="Doors" type="Node" parent="."]
 
-[node name="Door_Down2" parent="Doors" instance=ExtResource("5_ulwqd")]
-position = Vector2(336, 464)
-DestinationLevel = "Level23"
-DestinationVector = Vector2(336, 150)
-
 [node name="Door_Left" parent="Doors" instance=ExtResource("6_uuavs")]
 position = Vector2(16, 208)
 DestinationLevel = "Level12"
 DestinationVector = Vector2(875, 398)
+
+[node name="Enemy_Door" parent="Doors" instance=ExtResource("6_3xv3d")]
+position = Vector2(336, 464)
+DestinationLevel = "Level23"
+DestinationVector = Vector2(336, 150)
 
 [node name="ProjecileEnemy" parent="." instance=ExtResource("7_1h766")]
 position = Vector2(120, 360)
@@ -45,10 +45,11 @@ position = Vector2(120, 360)
 position = Vector2(528, 88)
 
 [node name="HoleRegion" type="Area2D" parent="."]
+collision_mask = 5
 script = ExtResource("9_3bocc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HoleRegion"]
-position = Vector2(323, 247)
+position = Vector2(323, 240)
 shape = SubResource("RectangleShape2D_6h71r")
 
 [connection signal="SceneLoaded" from="." to="." method="_on_scene_loaded"]

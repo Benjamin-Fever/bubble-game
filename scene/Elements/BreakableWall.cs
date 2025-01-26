@@ -21,6 +21,7 @@ public partial class BreakableWall : Area2D {
 			}
 		}
 		if (currentBody == null) return;
+		GD.Print(currentBody.Name);
         if (currentBody.GetNode<StateMachine>("StateMachine").CurrentState is PlayerDashState && currentBody.GetNode<ShieldComponent>("ShieldComponent").IsBlocking) {
 			_isBroken = true;
 		}

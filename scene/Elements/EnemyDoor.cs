@@ -7,6 +7,7 @@ public partial class EnemyDoor : Door
 	[Export] public bool IsLocked { get; set; } = true;
 
 	private StaticBody2D staticBody;
+	[Export] private Sprite2D closedSprite;
 
 	 public override void _Ready()
 	{   
@@ -14,6 +15,18 @@ public partial class EnemyDoor : Door
 		BodyEntered += OnBodyEntered;
 	}
 
+	public override void _Process(double delta)
+	{
+		
+			foreach (Node child in SceneManager.currentScene.GetChildren()){
+				if (child.IsInGroup("enemy")){
+					return;
+
+				}
+					
+			}
+			closedSprite.Visible = false;
+	}
 	public override void OnBodyEntered(Node2D body)
 	{
 		GD.Print("HERE");
@@ -39,5 +52,6 @@ public partial class EnemyDoor : Door
 	private void ToggleCollision(bool locked){
 		staticBody.GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", !locked);
 		IsLocked = locked;
+		
 	}
 }

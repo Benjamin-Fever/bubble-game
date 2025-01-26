@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkmgax8taoxbe"]
+[gd_scene load_steps=7 format=3 uid="uid://0tfmgkanfwpx"]
 
 [ext_resource type="Script" path="res://scene/Elements/EnemyDoor.cs" id="1_6i47q"]
+[ext_resource type="Texture2D" uid="uid://b82hoexfaivmc" path="res://scene/assets/door.png" id="2_v07b6"]
+[ext_resource type="Texture2D" uid="uid://v0i7ob37h0gm" path="res://scene/assets/skull.png" id="3_lo3s7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m54a4"]
 size = Vector2(33, 33)
@@ -8,9 +10,14 @@ size = Vector2(33, 33)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6lxop"]
 size = Vector2(30, 30)
 
-[node name="Enemy_Door" type="Area2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_55ue8"]
+atlas = ExtResource("3_lo3s7")
+region = Rect2(256.667, 0, 31.3334, 32.333)
+
+[node name="Enemy_Door" type="Area2D" node_paths=PackedStringArray("closedSprite")]
 collision_mask = 3
 script = ExtResource("1_6i47q")
+closedSprite = NodePath("closed")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_m54a4")
@@ -21,5 +28,11 @@ shape = SubResource("RectangleShape2D_m54a4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_6lxop")
+
+[node name="Open" type="Sprite2D" parent="."]
+texture = ExtResource("2_v07b6")
+
+[node name="closed" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_55ue8")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
