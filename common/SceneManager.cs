@@ -33,12 +33,12 @@ public partial class SceneManager : Node {
 	}
 
 	public static void ChangeScene(Scene2D scene) {
-		//currentScene.Save();
+		currentScene.Save();
 		currentScene.CallDeferred(MethodName.QueueFree);
 		currentScene = scene;
 		instance.CallDeferred(MethodName.AddChild, scene);
 
-		//scene.Load();
+		scene.Load();
 	}
 
 	public static void CloseGame() {

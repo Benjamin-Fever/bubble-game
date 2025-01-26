@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dhhb0o8xo7xxi"]
 
 [ext_resource type="Script" path="res://common/SceneManager.cs" id="1_6ptnq"]
-[ext_resource type="PackedScene" uid="uid://7yd6xx8lo5rw" path="res://scene/Levels/StartLevel.tscn" id="2_wqjdr"]
+[ext_resource type="PackedScene" uid="uid://blv17hbvb6qv7" path="res://scene/level_1.tscn" id="2_peitm"]
 [ext_resource type="Script" path="res://common/CameraController.cs" id="5_s0fv3"]
 [ext_resource type="PackedScene" uid="uid://dd5sllu6lyujk" path="res://entitys/player/player.tscn" id="6_q6b2l"]
 
@@ -10,13 +10,12 @@
 [node name="SceneManager" type="Node2D" parent="."]
 script = ExtResource("1_6ptnq")
 
-[node name="StartLevel" parent="SceneManager" instance=ExtResource("2_wqjdr")]
+[node name="Level1" parent="SceneManager" instance=ExtResource("2_peitm")]
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 zoom = Vector2(2.5, 2.5)
 script = ExtResource("5_s0fv3")
 target = NodePath("../Player")
-cameraLerp = 0.05
 
 [node name="Player" parent="." instance=ExtResource("6_q6b2l")]
 position = Vector2(163, 198)

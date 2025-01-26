@@ -7,7 +7,7 @@ public partial class ShieldComponent : Node {
 	[Export] private float ParryTimer = 0.5f;
 
 	[Export] public float ShieldRechargeTimer = 3.0f;
-	private float _currentShieldHealth;
+	public float _currentShieldHealth;
 	private float _currentParryTimer;
 
 	public float _shieldRechargeTimer;
@@ -40,6 +40,7 @@ public partial class ShieldComponent : Node {
 	}
 
 	public bool CanBlock(){
+		GD.Print(_currentShieldHealth > 0 && IsBlocking);
 		return _currentShieldHealth > 0 && IsBlocking;
 	}
 
