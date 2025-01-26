@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://brnwxsykx60m1"]
+[gd_scene load_steps=18 format=3 uid="uid://brnwxsykx60m1"]
 
 [ext_resource type="Texture2D" uid="uid://b7kt8o81uen6g" path="res://entitys/enemy/enemy_spritesheet.png" id="1_idfy6"]
 [ext_resource type="Script" path="res://common/SpeedComponent.cs" id="2_aqxd3"]
@@ -7,24 +7,21 @@
 [ext_resource type="Script" path="res://entitys/player/IdleState.cs" id="4_ampjm"]
 [ext_resource type="Script" path="res://entitys/enemy/ChasePlayerState.cs" id="5_rd3f8"]
 [ext_resource type="Script" path="res://entitys/enemy/StunState.cs" id="6_17sn1"]
-[ext_resource type="Script" path="res://entitys/enemy/FleeState.cs" id="7_4fbbp"]
 [ext_resource type="Script" path="res://entitys/enemy/GroupDetection.cs" id="7_hnpv6"]
 [ext_resource type="Script" path="res://common/Hurtbox.cs" id="8_ftyia"]
 [ext_resource type="Script" path="res://entitys/enemy/ProjectileState.cs" id="8_xly8u"]
 [ext_resource type="PackedScene" uid="uid://cwnu7x17cltx7" path="res://entitys/enemy/projectile.tscn" id="9_bqk7a"]
+[ext_resource type="Script" path="res://entitys/enemy/KnockbackState.cs" id="11_mm5vo"]
 [ext_resource type="Script" path="res://entitys/enemy/EnemyDeathState.cs" id="11_r30hy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqil"]
-size = Vector2(18, 24)
+size = Vector2(18, 11)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o4iyg"]
-radius = 128.0
+radius = 160.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oifay"]
-radius = 80.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1urym"]
-radius = 24.0
+radius = 128.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nmrpv"]
 size = Vector2(20, 19)
@@ -38,7 +35,7 @@ texture = ExtResource("1_idfy6")
 vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -4)
+position = Vector2(-1, 5.5)
 shape = SubResource("RectangleShape2D_qhqil")
 
 [node name="SpeedComponent" type="Node" parent="." node_paths=PackedStringArray("Body")]
@@ -53,28 +50,32 @@ MaxHealth = 3
 script = ExtResource("3_noclh")
 initialState = NodePath("IdleState")
 
-[node name="EnemyDeathState" type="Node" parent="StateMachine"]
-script = ExtResource("11_r30hy")
-
 [node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("4_ampjm")
 
 [node name="ChasePlayerState" type="Node" parent="StateMachine" node_paths=PackedStringArray("speedComponent")]
 script = ExtResource("5_rd3f8")
-ChaseSpeed = 8000.0
+ChaseSpeed = 6000.0
 speedComponent = NodePath("../../SpeedComponent")
-
-[node name="StunState" type="Node" parent="StateMachine"]
-script = ExtResource("6_17sn1")
-
-[node name="FleeState" type="Node" parent="StateMachine"]
-script = ExtResource("7_4fbbp")
 
 [node name="ProjectileState" type="Node" parent="StateMachine" node_paths=PackedStringArray("body")]
 script = ExtResource("8_xly8u")
-ProjectileSpeed = 300.0
-TimeBetweenShots = 0.2
+ProjectileSpeed = 200.0
+TimeBetweenShots = 0.4
 ProjectileScene = ExtResource("9_bqk7a")
+body = NodePath("../..")
+
+[node name="KnockbackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("speedComponent", "body")]
+script = ExtResource("11_mm5vo")
+speedComponent = NodePath("../../SpeedComponent")
+body = NodePath("../..")
+
+[node name="StunState" type="Node" parent="StateMachine"]
+script = ExtResource("6_17sn1")
+StunTime = 0.2
+
+[node name="EnemyDeathState" type="Node" parent="StateMachine" node_paths=PackedStringArray("body")]
+script = ExtResource("11_r30hy")
 body = NodePath("../..")
 
 [node name="AgroRange" type="Area2D" parent="."]
@@ -96,16 +97,6 @@ _groupName = "player"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SafeRange"]
 shape = SubResource("CircleShape2D_oifay")
 debug_color = Color(0, 0.645704, 0.261013, 0.156863)
-
-[node name="FleeRange" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("7_hnpv6")
-_groupName = "player"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FleeRange"]
-shape = SubResource("CircleShape2D_1urym")
-debug_color = Color(0.745098, 0.364706, 0.741176, 0.0901961)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 12
