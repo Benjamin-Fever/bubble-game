@@ -16,7 +16,7 @@ script = ExtResource("1_6ptnq")
 zoom = Vector2(2.5, 2.5)
 script = ExtResource("5_s0fv3")
 target = NodePath("../Player")
-cameraLerp = 0.08
+cameraLerp = 0.05
 
 [node name="Player" parent="." instance=ExtResource("6_q6b2l")]
 position = Vector2(163, 198)

@@ -5,10 +5,6 @@ using Godot.Collections;
 public partial class SceneManager : Node {
 	public static SceneManager instance;
 	public static Scene2D currentScene;
-
-	private static Timer doorTimer = new Timer();
-	
-	private static float doorTimerDuration = 3.5f;
 	
 
 	public override void _EnterTree() {
@@ -24,14 +20,6 @@ public partial class SceneManager : Node {
 	}
 
 	public static void ChangeScene(string scenePath) {
-		//Checks if been throgh door in last 0.5 seconds if so stops the function
-		if(doorTimer.IsStopped()){
-			doorTimer.Start(doorTimerDuration);
-			GD.Print("Door Timer Started");
-		}else{
-			GD.Print("Door Timer Not Finished");
-			return;
-		}
 		PackedScene scene = GD.Load<PackedScene>(scenePath);
 		if (scene == null) {
 			GD.PrintErr("Scene not found: " + scenePath);
@@ -45,11 +33,12 @@ public partial class SceneManager : Node {
 	}
 
 	public static void ChangeScene(Scene2D scene) {
-		currentScene.Save();
-		currentScene.QueueFree();
+		//currentScene.Save();
+		currentScene.CallDeferred(MethodName.QueueFree);
 		currentScene = scene;
-		instance.AddChild(scene);
-		scene.Load();
+		instance.CallDeferred(MethodName.AddChild, scene);
+
+		//scene.Load();
 	}
 
 	public static void CloseGame() {

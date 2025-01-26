@@ -26,7 +26,7 @@ script = ExtResource("2_y0lbn")
 [node name="Door_Down" parent="Node" instance=ExtResource("6_sd5fy")]
 position = Vector2(176, 240)
 DestinationLevel = "Level12"
-DestinationVector = Vector2(464, 144)
+DestinationVector = Vector2(464, 200)
 
 [node name="Door_Left" parent="Node" instance=ExtResource("5_3u08v")]
 position = Vector2(112, 184)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://b4807ho3c28um"]
+[gd_scene load_steps=12 format=4 uid="uid://b4807ho3c28um"]
 
 [ext_resource type="Script" path="res://common/Scene2D.cs" id="1_13fvd"]
 [ext_resource type="Script" path="res://common/SceneData.cs" id="2_3xlip"]
@@ -8,10 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://bodlupx4v4vwl" path="res://scene/Elements/Doors/Door_Left.tscn" id="6_uuavs"]
 [ext_resource type="PackedScene" uid="uid://brnwxsykx60m1" path="res://entitys/enemy/projectile_enemy.tscn" id="7_1h766"]
 [ext_resource type="PackedScene" uid="uid://canmgwue4ew4x" path="res://entitys/enemy/basic_enemy.tscn" id="8_lj2he"]
+[ext_resource type="Script" path="res://scene/HoleRegion.cs" id="9_3bocc"]
 
 [sub_resource type="Resource" id="Resource_fd720"]
 script = ExtResource("2_3xlip")
 data = {}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6h71r"]
+size = Vector2(234, 194)
 
 [node name="Level13" type="Node2D" node_paths=PackedStringArray("mapLayer")]
 script = ExtResource("1_13fvd")
@@ -40,5 +44,12 @@ position = Vector2(120, 360)
 
 [node name="BasicEnemy" parent="." instance=ExtResource("8_lj2he")]
 position = Vector2(512, 96)
+
+[node name="HoleRegion" type="Area2D" parent="."]
+script = ExtResource("9_3bocc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HoleRegion"]
+position = Vector2(323, 247)
+shape = SubResource("RectangleShape2D_6h71r")
 
 [connection signal="SceneLoaded" from="." to="." method="_on_scene_loaded"]
