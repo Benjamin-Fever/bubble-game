@@ -89,14 +89,16 @@ _speed = 9000.0
 _inputComponent = NodePath("../../InputComponent")
 _speedComponent = NodePath("../../SpeedComponent")
 
-[node name="PlayerDashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("_speedComponent")]
+[node name="PlayerDashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("_speedComponent", "shieldComponent")]
 script = ExtResource("7_0qx30")
 _dashDistance = 80.0
 _dashTime = 0.2
 _speedComponent = NodePath("../../SpeedComponent")
+shieldComponent = NodePath("../../ShieldComponent")
 
-[node name="PlayerStompState" type="Node" parent="StateMachine"]
+[node name="PlayerStompState" type="Node" parent="StateMachine" node_paths=PackedStringArray("shieldComponent")]
 script = ExtResource("8_gc4du")
+shieldComponent = NodePath("../../ShieldComponent")
 
 [node name="PlayerDeathState" type="Node" parent="StateMachine"]
 script = ExtResource("9_kbya2")

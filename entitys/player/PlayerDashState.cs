@@ -5,6 +5,7 @@ public partial class PlayerDashState : State {
     [Export] private float _dashDistance = 200f;
     [Export] private float _dashTime = 0.5f;
     [Export] private SpeedComponent _speedComponent;
+    [Export] private ShieldComponent shieldComponent;
 
     private Vector2 _startingDashPosition;
 
@@ -26,6 +27,13 @@ public partial class PlayerDashState : State {
             ChangeState("IdleState");
         }
         _prevFramePosition = _speedComponent.Body.GlobalPosition;
+    }
+
+    public override void Exit()
+    {
+        if(shieldComponent.IsBlocking){
+            shieldComponent._currentShieldHealth = 0;
+        }
     }
 }
 
