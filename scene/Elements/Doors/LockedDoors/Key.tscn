@@ -1,11 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://df5nt37t37srx"]
 
 [ext_resource type="Script" path="res://scene/Elements/Doors/LockedDoors/Key.cs" id="1_ffl5l"]
+[ext_resource type="Texture2D" uid="uid://d3ed77ybmxmio" path="res://scene/assets/key.png" id="2_tviol"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0rau"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kdo81"]
-size = Vector2(20, 20)
 
 [node name="Key" type="Area2D"]
 collision_mask = 2
@@ -15,6 +13,6 @@ script = ExtResource("1_ffl5l")
 shape = SubResource("RectangleShape2D_s0rau")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
-texture = SubResource("PlaceholderTexture2D_kdo81")
+texture = ExtResource("2_tviol")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

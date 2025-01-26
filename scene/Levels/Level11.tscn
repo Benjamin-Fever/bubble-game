@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://tg66b36h7dfc"]
+[gd_scene load_steps=11 format=4 uid="uid://tg66b36h7dfc"]
 
 [ext_resource type="Script" path="res://common/Scene2D.cs" id="1_oa4u3"]
 [ext_resource type="Script" path="res://common/SceneData.cs" id="2_w0nut"]
@@ -6,11 +6,19 @@
 [ext_resource type="Script" path="res://common/GameMap.cs" id="4_6fbvr"]
 [ext_resource type="PackedScene" uid="uid://d3jjpjxylg7th" path="res://scene/Elements/Doors/Door_Right.tscn" id="5_m2wc3"]
 [ext_resource type="PackedScene" uid="uid://bj7wq50bjkue5" path="res://scene/Elements/Doors/LockedDoors/Locked_Door.tscn" id="6_4u654"]
-[ext_resource type="PackedScene" uid="uid://df5nt37t37srx" path="res://scene/Elements/Doors/LockedDoors/Key.tscn" id="7_l6fiv"]
+[ext_resource type="PackedScene" uid="uid://ce4awwipe81om" path="res://scene/Elements/Doors/Door_Down.tscn" id="7_o0tsf"]
+[ext_resource type="Script" path="res://scene/HoleRegion.cs" id="8_fcx77"]
 
 [sub_resource type="Resource" id="Resource_ko3tt"]
 script = ExtResource("2_w0nut")
-data = {}
+data = {
+NodePath("LockedDoor"): {
+"IsLocked": true
+}
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lyojv"]
+size = Vector2(38.5269, 55.0584)
 
 [node name="Room1L" type="Node2D" node_paths=PackedStringArray("mapLayer")]
 script = ExtResource("1_oa4u3")
@@ -35,6 +43,19 @@ RequiredKey = "Red"
 DestinationLevel = "Level22"
 DestinationVector = Vector2(282, 432)
 
-[node name="Key" parent="." instance=ExtResource("7_l6fiv")]
-position = Vector2(448, 912)
-keyName = "Red"
+[node name="Door_Down" parent="." instance=ExtResource("7_o0tsf")]
+position = Vector2(464, 1104)
+DestinationLevel = "Level31"
+DestinationVector = Vector2(336, 146)
+
+[node name="HoleRegion" type="Area2D" parent="."]
+scale = Vector2(1.3418, -7.96381)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("8_fcx77")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HoleRegion"]
+position = Vector2(286.183, -54.2454)
+rotation = 3.14159
+scale = Vector2(4.64258, 1.20417)
+shape = SubResource("RectangleShape2D_lyojv")

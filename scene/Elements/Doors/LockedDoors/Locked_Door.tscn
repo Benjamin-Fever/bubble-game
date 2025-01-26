@@ -2,26 +2,25 @@
 
 [ext_resource type="PackedScene" uid="uid://bravbsu3uiuwi" path="res://scene/Elements/door.tscn" id="1_o3ut7"]
 [ext_resource type="Script" path="res://scene/Elements/Doors/LockedDoors/LockedDoor.cs" id="2_h6qjn"]
-
-[sub_resource type="Gradient" id="Gradient_8he6f"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_g2gws"]
-gradient = SubResource("Gradient_8he6f")
-width = 32
-height = 32
+[ext_resource type="Texture2D" uid="uid://b82hoexfaivmc" path="res://scene/assets/door.png" id="3_0hepw"]
+[ext_resource type="Texture2D" uid="uid://0txh35sf5tnk" path="res://scene/assets/lockdoor.png" id="4_rdk2i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xf6yg"]
 size = Vector2(32, 32)
 
-[node name="LockedDoor" instance=ExtResource("1_o3ut7")]
+[node name="LockedDoor" node_paths=PackedStringArray("closedSprite") instance=ExtResource("1_o3ut7")]
 script = ExtResource("2_h6qjn")
 IsLocked = true
 RequiredKey = ""
+closedSprite = NodePath("Closed")
 
-[node name="Sprite2D2" type="Sprite2D" parent="." index="2"]
-texture = SubResource("GradientTexture2D_g2gws")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." index="3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="2"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
 shape = SubResource("RectangleShape2D_xf6yg")
+
+[node name="Open" type="Sprite2D" parent="." index="3"]
+texture = ExtResource("3_0hepw")
+
+[node name="Closed" type="Sprite2D" parent="." index="4"]
+texture = ExtResource("4_rdk2i")
